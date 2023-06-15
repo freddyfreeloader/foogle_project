@@ -20,7 +20,8 @@
     "test:prod:watch": "MODE=prod wtr --watch",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "roll": "rollup -c --watch"
+    "roll": "rollup -c --watch",
+    "chromatic": "npx chromatic --project-token=chpt_6c95d6ce47ca041"
   },
   "keywords": [
     "web-components",
@@ -29,7 +30,9 @@
     "lit",
     "storybook"
   ],
-  "author": "freddyfreeloader",
+  "author": {
+    "name": "freddyfreeloader"
+  },
   "license": "BSD-3-Clause",
   "dependencies": {
     "lit": "^2.2.4",
@@ -60,6 +63,7 @@
     "@web/test-runner": "^0.15.0",
     "@web/test-runner-playwright": "^0.9.0",
     "@webcomponents/webcomponentsjs": "^2.6.0",
+    "chromatic": "^6.19.7",
     "eslint": "^8.15.0",
     "eslint-plugin-storybook": "^0.6.12",
     "lit-analyzer": "^0.0.6",
@@ -75,5 +79,8 @@
     "storybook": "^7.0.18",
     "storybook-addon-pseudo-states": "^2.0.1"
   },
-  "customElements": "custom-elements.json"
+  "customElements": "custom-elements.json",
+  "name": "",
+  "readme": "ERROR: No README data found!",
+  "_id": "@1.0.0"
 }
