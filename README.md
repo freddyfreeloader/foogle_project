@@ -65,9 +65,11 @@ The dialogs of google contacts built with WebComponents and Lit.
 
 
 [StoryBook][storybooklink]
+[StoryBook2][storybooklink2]
 
 
 [storybooklink]: https://www.chromatic.com/library?appId=648b5c69455089f4504e5e64
+[storybooklink2]: https://648b5c69455089f4504e5e64-zcoqlbqoec.chromatic.com/?path=/docs/description--docs
 [confirmationDialog]: /src/dialogs/confirmationDialog
 [inputDialog]: /src/dialogs/inputDialog
 [radioButtonDialog]: /src/dialogs/radioButtonDialog
