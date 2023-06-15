@@ -3,3 +3,4 @@ custom-elements.json
 index.bundled.js
 /stories/
 /coverage/
+/storybook-static/
