@@ -64,18 +64,18 @@ The dialogs of google contacts built with WebComponents and Lit.
 - controls the selection of the radio buttons
 
 [confirmationDialog]: /src/dialogs/confirmationDialog
-[inputDialog]: https://github.com/freddyfreeloader/newapp/tree/main/src/dialogs/inputDialog
-[radioButtonDialog]: https://github.com/freddyfreeloader/newapp/tree/main/src/dialogs/radioButtonDialog
-[dialogButton]: https://github.com/freddyfreeloader/newapp/tree/main/src/dialogs/components/dialogButton
-[modalBackground]: https://github.com/freddyfreeloader/newapp/tree/main/src/dialogs/components/modalBackground
-[dialogContainer]: https://github.com/freddyfreeloader/newapp/tree/main/src/dialogs/components/dialogContainer
-[dialogBaseMixin]: https://github.com/freddyfreeloader/newapp/tree/main/src/dialogs/components/mixins/dialogBaseMixin
-[focusManagerMixin]: https://github.com/freddyfreeloader/newapp/tree/main/src/dialogs/components/mixins/focusManagerMixin
-[validatedInput]: https://github.com/freddyfreeloader/newapp/tree/main/src/dialogs/components/validatedInput
-[radioButton]: https://github.com/freddyfreeloader/newapp/tree/main/src/dialogs/components/radioButton
-[selectionIndicator]: https://github.com/freddyfreeloader/newapp/tree/main/src/dialogs/components/selectionIndicator
-[radioButtonLabel]: https://github.com/freddyfreeloader/newapp/tree/main/src/dialogs/components/radioButtonLabel
-[radioButtonController]: https://github.com/freddyfreeloader/newapp/tree/main/src/dialogs/components/radioButtonController
+[inputDialog]: /src/dialogs/inputDialog
+[radioButtonDialog]: /src/dialogs/radioButtonDialog
+[dialogButton]: /src/dialogs/components/dialogButton
+[modalBackground]: /src/dialogs/components/modalBackground
+[dialogContainer]: /src/dialogs/components/dialogContainer
+[dialogBaseMixin]: /src/dialogs/components/mixins/dialogBaseMixin
+[focusManagerMixin]: /src/dialogs/components/mixins/focusManagerMixin
+[validatedInput]: /src/dialogs/components/validatedInput
+[radioButton]: /src/dialogs/components/radioButton
+[selectionIndicator]: /src/dialogs/components/selectionIndicator
+[radioButtonLabel]: /src/dialogs/components/radioButtonLabel
+[radioButtonController]: /src/dialogs/components/radioButtonController
 
 [image confirmationDialog]: /images/confirmationDialog.png
 [image inputDialog]: /images/inputDialog.png
