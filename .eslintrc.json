@@ -1,0 +1,34 @@
+{
+  "root": true,
+  "extends": [
+    "eslint:recommended",
+    "plugin:storybook/recommended"
+  ],
+  "parser": "@babel/eslint-parser",
+  "globals": {
+    "chai": "readonly"
+  },
+  "parserOptions": {
+    "requireConfigFile": false,
+    "sourceType": "module"
+  },
+  "env": {
+    "browser": true,
+    "mocha": true,
+    "es6": true
+  },
+  "rules": {
+    "no-unexpected-multiline": "off"
+  },
+  "overrides": [
+    {
+      "files": [
+        "rollup.config.js",
+        "web-test-runner.config.js"
+      ],
+      "env": {
+        "node": true
+      }
+    }
+  ]
+}

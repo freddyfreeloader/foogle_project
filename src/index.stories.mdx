@@ -1,0 +1,55 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Description" />
+
+<style>
+  {`
+  
+  `} 
+</style>
+
+# Foogle - a fake google contacts application
+
+## Projekt-Ziel
+
+Das Foogle - Projekt ist der Versuch, die Adressbuch-Web-Applikation von Google "google contacts" nahezu vollständig nachzubilden und eine funktionierende "real life" Demonstrations-Applikation zu entwickeln.
+
+Die Grenzen des Projektes sind Funktionen, die auf anderen Google Applikationen bzw. deren Daten beruhen, wie z.B. Google Calender, Gmail, Google Maps.
+
+## Lern-Ziel
+
+Durch die Analyse und Nachbau der Webseite die Programmierung eines "großen" Web-Projekts zu üben.
+
+
+## Unterschiede zum "Original"
+
+- Da das Foogle-Projekt auf WebComponents basiert, ist hier das CSS im ShadowDOM gescopt, was zu vielen Änderungen zum original CSS resultiert.
+
+## Changelog / aktueller Projektstand
+
+
+
+- 04/22: Projektstart
+- NEU: MYSQL, Spring, Thymeleaf, ORM mit Hibernate, HTML, CSS -> Umstellung auf Intellij Utimate wegen besserer Spring-Integration
+- erste Implementierung mit Thymeleaf und SSR,
+- da trotz Fragmentierung zu viel redundanter Code -> Umstellung auf SPA
+- NEU: Javascript, Node, Lit
+- 04/23: Backend und Frontend funktioniert, fast alle Funktionen implementiert, aber 
+    - Komponeneten sind teilweise noch zu groß
+    - CSS-Klassennamen noch nicht vollständig umgeschrieben
+    - Tests der Module nur mit Jest, WebComponents sind ungetested
+    - Applikation läuft bisher nur auf lokalem Server
+    - bisher nicht möglich, unterschiedliche User einzuloggen -> Login fehlt
+    - responsive Darstellung läuft nur in Chrome und Safari, Fehler im Firefox-Browser
+    - fehlende Funktionen/Bereiche:
+      - Header fast ausschließlich nur Kopie vom Original, Searchbar ohne Funktion
+      - Import/Export der Kontakte mit CSV/vCard
+      - Druckfunktion
+      - Papierkorb mit 30-Tage Aufbewahrung der gelöschten Kontakte
+      - Zusammenführen der Kontakte
+      - versteckte Kontakte
+      - Änderung der Spaltenreihenfolge
+- Umstieg von Intellij auf VS Code
+- Beginn Neuimplementierung der Applikation Bottom-Up mit Storybook und openWc-testframework
+- 06/23: Fertigstellung der Dialog Komponenten
+
