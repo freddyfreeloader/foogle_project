@@ -47,7 +47,7 @@ export const Example = {
   render: () => html`
     <style>
       .colored-box {
-        width: 200px;
+        width: 210px;
         height: 200px;
 
         background-color: green;
