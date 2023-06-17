@@ -2,8 +2,12 @@
   "root": true,
   "extends": [
     "eslint:recommended",
-    "plugin:storybook/recommended"
+    "plugin:storybook/recommended",
+    "plugin:mdx/recommended"
   ],
+  "settings": {
+    "mdx/code-blocks": true
+  },
   "parser": "@babel/eslint-parser",
   "globals": {
     "chai": "readonly"
@@ -22,10 +26,7 @@
   },
   "overrides": [
     {
-      "files": [
-        "rollup.config.js",
-        "web-test-runner.config.js"
-      ],
+      "files": ["rollup.config.js", "web-test-runner.config.js"],
       "env": {
         "node": true
       }
