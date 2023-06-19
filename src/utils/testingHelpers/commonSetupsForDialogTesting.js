@@ -1,5 +1,6 @@
 import {aTimeout} from '@open-wc/testing';
 import {queryDeep} from '../shadowDomUtils/findElements/findElementsInShadowDOM';
+import { MODAL_BACKGROUND, APPLY_BUTTON_CLASS , CANCEL_BUTTON_CLASS} from './constants';
 
 export function createParentNodeShortDuration() {
   const parentNode = document.createElement('div');
@@ -25,17 +26,17 @@ export function createParentNodeShortDuration() {
 }
 
 export async function clickBackground() {
-  const background = await queryDeep('my-modal-background')
+  const background = await queryDeep(MODAL_BACKGROUND)
   await aTimeout(1);
   background.click();
 }
 
 export async function clickApplyButton() {
-  await clickButton('.js-apply-button');
+  await clickButton(APPLY_BUTTON_CLASS);
 }
 
 export async function clickCancelButton() {
-  await clickButton('.js-cancel-button');
+  await clickButton(CANCEL_BUTTON_CLASS);
 }
 
 export async function clickButton(selector) {
