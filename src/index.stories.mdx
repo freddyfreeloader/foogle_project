@@ -12,31 +12,53 @@ import { Meta } from '@storybook/blocks';
 
 ## Projekt-Ziel
 
-Das Foogle - Projekt ist der Versuch, die Adressbuch-Web-Applikation von Google "google contacts" nahezu vollständig nachzubilden und eine funktionierende "real life" Demonstrations-Applikation zu entwickeln.
+Das Foogle - Projekt ist der Versuch, die Adressbuch-Web-Applikation von Google "google contacts" nahezu vollständig nachzubilden 
+und eine funktionierende "real life" Demonstrations-Applikation zu entwickeln.
+
+Das fertige Projekt sollte sich von der UX genauso anfühlen wie das Original, 
+das Backend sollte alle Funktionen der Adressbuchverwaltung realisieren können.
 
 Die Grenzen des Projektes sind Funktionen, die auf anderen Google Applikationen bzw. deren Daten beruhen, wie z.B. Google Calender, Gmail, Google Maps.
 
 
 ## Lern-Ziel
 
-Durch die Analyse und Nachbau der Webseite die Programmierung eines "großen" Web-Projekts zu üben.
+Durch die Analyse und Nachbau der Webseite die Realisierung eines "großen" Web-Projekts zu lernen.
 
 
-## Unterschiede zum "Original"
+## Projektverlauf
 
-- Da das Foogle-Projekt auf WebComponents basiert, ist hier das CSS im ShadowDOM gescopt, was zu vielen Änderungen zum original CSS resultiert.
+### Vorwissen:
 
-## Changelog / aktueller Projektstand
+#### Sprachen/Frameworks
+  - Java 
+  - JavaFX 
+  - raw SQL
 
+#### Datenbank
+- SQLite
 
+#### Testframeworks
+- Junit
+- TestFX
+
+#### Build
+
+- gradle
+
+#### OS / IDE
+- Windows
+- intellij community
+
+### Changelog:
 
 - 04/22: Projektstart
-- NEU: MYSQL, Spring, Thymeleaf, ORM mit Hibernate, HTML, CSS -> Umstellung auf Intellij Utimate wegen besserer Spring-Integration
+- NEU: MYSQL, Spring, REST-Services, Thymeleaf, ORM mit Hibernate, HTML, CSS -> Umstellung auf Intellij Utimate wegen besserer Spring-Integration
 - erste Implementierung mit Thymeleaf und SSR,
 - da trotz Fragmentierung zu viel redundanter Code -> Umstellung auf SPA
 - NEU: Javascript, Node, Lit
 - 04/23: Backend und Frontend funktioniert, fast alle Funktionen implementiert, aber 
-    - Komponeneten sind teilweise noch zu groß
+    - Komponenten sind teilweise noch zu groß,
     - CSS-Klassennamen noch nicht vollständig umgeschrieben
     - Tests der Module nur mit Jest, WebComponents sind ungetested
     - Applikation läuft bisher nur auf lokalem Server
@@ -45,12 +67,29 @@ Durch die Analyse und Nachbau der Webseite die Programmierung eines "großen" We
     - fehlende Funktionen/Bereiche:
       - Header fast ausschließlich nur Kopie vom Original, Searchbar ohne Funktion
       - Import/Export der Kontakte mit CSV/vCard
-      - Druckfunktion
+      - Drucklayout
       - Papierkorb mit 30-Tage Aufbewahrung der gelöschten Kontakte
       - Zusammenführen der Kontakte
       - versteckte Kontakte
-      - Änderung der Spaltenreihenfolge
-- Umstieg von Intellij auf VS Code
+      - User kann Spaltenreihenfolge Adresse, Telefon, Email, etc. nicht ändern
+      - Kontakt-Avatar bisher nur als Bild, kein Namenskürzel Platzhalter
+- Umstieg in der Frontendentwicklung von Intellij auf VS Code
 - Beginn Neuimplementierung der Applikation Bottom-Up mit Storybook und openWc-testframework
 - 06/23: Fertigstellung der Dialog Komponenten
+
+## Résumé zum Zwischenstand:
+
+Das Erreichen des Projektziels in absehbarer Zeit scheint unrealistisch, 
+die zu kopierende Applikation ist einfach zu groß und komplex, 
+als dass sie in einer "one-man-show" umgesetzt werden kann.  
+
+Zwar steht das architektonische Grundgerüst, alle Basis-Funktionen sowie die Kommunikation mit dem Backend funktionieren, 
+der Code ist aber größtenteils ungetestet, kaum dokumentiert, die einzelnen Komponenten ohne Storybook.
+
+Mit der hier vorliegenden Dokumentation eines sehr kleinen Teilbereichs der Applikation, den Dialog-Komponeneten, will ich zeigen, 
+wie ich mit meinen aktuellen Programmierfähigkeiten das Projekt fortführen, bzw. komplett neu aufrollen würde.
+Für eine komplette Überarbeitung der Applikation fehlt aber die Zeit.
+
+
+
 

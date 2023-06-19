@@ -1,6 +1,7 @@
 # Foogle - Google Contacts Studies: Dialogs
 
-The dialogs of google contacts built with WebComponents and Lit.
+The dialogs of google contacts built with WebComponents and Lit.  
+For verbose description of project and each component please visit [FoogleOnStorybook][storybooklink2].
 
 ### [Confirmation Dialog:][confirmationDialog]
 
@@ -22,7 +23,7 @@ The dialogs of google contacts built with WebComponents and Lit.
 
 #### [modalBackground.js][modalBackground]:
 
-- the grey background under the dialog, makes the dialog modal
+- the grey background behind the dialog, makes the dialog modal
 
 #### [dialogContainer.js][dialogContainer]:
 
@@ -64,9 +65,6 @@ The dialogs of google contacts built with WebComponents and Lit.
 - controls the selection of the radio buttons
 
 
-[StoryBook2][storybooklink2]
-
-
 [storybooklink2]: https://648b5c69455089f4504e5e64-zcoqlbqoec.chromatic.com
 [confirmationDialog]: /src/dialogs/confirmationDialog
 [inputDialog]: /src/dialogs/inputDialog
@@ -81,7 +79,6 @@ The dialogs of google contacts built with WebComponents and Lit.
 [selectionIndicator]: /src/dialogs/components/selectionIndicator
 [radioButtonLabel]: /src/dialogs/components/radioButtonLabel
 [radioButtonController]: /src/dialogs/components/radioButtonController
-
 [image confirmationDialog]: /images/confirmationDialog.png
 [image inputDialog]: /images/inputDialog.png
 [image radioButtonDialog]: /images/radioButtonDialog.png
