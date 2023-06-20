@@ -7,7 +7,7 @@ export default {
   component: 'my-dialog-button',
   tags: ['autodocs'],
   args: {
-    buttonText: 'Submit',
+    buttonText: 'apply or cancel button',
   },
   argTypes: {
     _button: disableTable(),
@@ -127,7 +127,7 @@ export const Playground = {
       }
 
       my-dialog-button::part(highlight)::after {
-        transition: opacity ${args.releaseClickDuration}ms linear;
+        transition: all ${args.releaseClickDuration}ms linear;
       }
 
       .button:hover my-dialog-button::part(highlight)::before {
@@ -141,7 +141,7 @@ export const Playground = {
         opacity: 0.66;
       }
       .button:active my-dialog-button::part(highlight)::after {
-        transition: opacity ${args.clickAndFocusDuration}ms linear;
+        transition: all ${args.clickAndFocusDuration}ms linear;
         opacity: 0.63;
       }
     </style>

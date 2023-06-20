@@ -17,7 +17,6 @@ export const dialogButtonStyles = [
      *     <span class="text">Button Text</span>
      * </div>
      */
-
     .button {
       position: relative;
 
@@ -66,19 +65,17 @@ export const dialogButtonStyles = [
       color: #174ea6;
     }
 
-    /* Hover and active state
+    /* Hover, focus and active state
    ========================================================================== */
 
     /**
-     * Parent class for ::before and :: after classes,
+     * Parent class for ::before and ::after classes,
      * clips their background. 
      */
     .highlight {
       position: absolute;
       z-index: 0;
       inset: 0;
-
-      opacity: 0.3;
 
       overflow: hidden;
 
@@ -89,14 +86,11 @@ export const dialogButtonStyles = [
     }
 
     /**
-     * Adds opacity, 
-     * highlight::before  for :hover and :active, 
-     * highlight::after  for :focus
+     * Adds opacity for :hover and :focus, 
      *
      * size is twice a big, so you can use background gradients, scale transitions, etc.
      */
-    .highlight::before,
-    .highlight::after {
+    .highlight::before {
       content: '';
       position: absolute;
       top: -50%;
@@ -104,21 +98,46 @@ export const dialogButtonStyles = [
 
       opacity: 0;
 
-      border-radius: 50%;
+      border-radius: 4px;
       width: 200%;
       height: 200%;
 
       background-color: #1a73e8;
       pointer-events: none;
+      opacity: 0;
+    }
+
+    /**
+     * Adds ink spread  for :active
+     */
+    .highlight::after {
+      content: '';
+      position: absolute;
+
+      transform-origin: var(--inkspread, center);
+      opacity: 0;
+      transform: scaleX(0);
+      transition: var(
+        --dialog-button-click-release-transition,
+        all 150ms linear
+      );
+      width: 100%;
+      height: 100%;
+
+      background-color: #1a73e8;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .button:active:hover .highlight::after {
+      transition: all
+        var(--dialog-button-click-and-focus-in-transition-duration, 175ms)
+        linear;
+      transform: scaleX(1);
+      opacity: 0.12;
     }
 
     .highlight::before {
-      transition: opacity 15ms linear, background-color 15ms linear;
-      -webkit-transition: var(
-        --dialog-button-hover-in-out-transition,
-        opacity 15ms linear,
-        background-color 15ms linear
-      );
       transition: var(
         --dialog-button-hover-in-out-transition,
         opacity 15ms linear,
@@ -127,28 +146,15 @@ export const dialogButtonStyles = [
       z-index: 1;
     }
 
-    .highlight::after {
-      transition: opacity 150ms linear;
-      transition: var(--dialog-button-click-release-transition, opacity 150ms linear);
-      -webkit-transition: var(--dialog-button-click-release-transition, opacity 150ms linear);
-      z-index: 0;
-    }
-
     .button:hover .highlight::before {
       opacity: 0.04;
     }
 
     .button:focus .highlight::before {
-      transition-duration: 75ms;
-      transition-duration: var(--dialog-button-click-and-focus-in-transition-duration, 75ms);
+      transition: all
+        var(--dialog-button-click-and-focus-in-transition-duration, 175ms)
+        linear;
       opacity: 0.24;
-    }
-
-    .button:active .highlight::after {
-      transition-duration: 75ms;
-      transition-duration: var(--dialog-button-click-and-focus-in-transition-duration, 75ms);
-
-      opacity: 0.12;
     }
 
     /* Focus borders
@@ -156,21 +162,21 @@ export const dialogButtonStyles = [
 
     /**  The inner focus border */
     .focused {
-        position: absolute;
-        top: 50%;
-        left: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
 
-        display: none;
-        transform: translate(-50%, -50%);
-        
-        border: 2px solid transparent;
-        border-radius: 6px;
-        box-sizing: content-box;
-        
-        width: calc(100% + 4px);
-        height: calc(100% + 4px);
-        
-        pointer-events: none;
+      display: none;
+      transform: translate(-50%, -50%);
+
+      border: 2px solid transparent;
+      border-radius: 6px;
+      box-sizing: content-box;
+
+      width: calc(100% + 4px);
+      height: calc(100% + 4px);
+
+      pointer-events: none;
     }
 
     /** The outer focus border */
@@ -196,6 +202,7 @@ export const dialogButtonStyles = [
     }
 
     .button:focus .focused::after {
+      display: inline-block;
       border-color: #e8f0fe;
     }
   `,

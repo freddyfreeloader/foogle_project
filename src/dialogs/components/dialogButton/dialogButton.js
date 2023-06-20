@@ -31,10 +31,10 @@ export class DialogButton extends LitElement {
         class="button"
         part="button"
         tabindex="0"
-        @mousedown="${(e) => e.preventDefault()}"
+        @mousedown="${this.handleMousedown}"
         @keydown="${this._handleEnter}"
       >
-        <div class="highlight" part="highlight"></div>
+        <div class="highlight"  part="highlight"></div>
         <div class="focused"></div>
         <span class="text" part="text">${this.labelText}</span>
       </div>
@@ -49,6 +49,13 @@ export class DialogButton extends LitElement {
   getButton() {
     return this._button;
   }
+
+  handleMousedown(e) {
+    e.preventDefault();
+    const offX = e.offsetX + 'px ' + e.offsetY +'px' ;
+    this._button.style.setProperty('--inkspread', offX );
+  }
+
 
   /** Converts keyboard "Enter" event to click() on button.  */
   _handleEnter(event) {
