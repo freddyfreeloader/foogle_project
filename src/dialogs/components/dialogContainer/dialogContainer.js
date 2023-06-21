@@ -3,23 +3,27 @@ import {classMap} from 'lit/directives/class-map.js';
 import {styleMap} from 'lit/directives/style-map.js';
 /**
  * The container for dialogs.
- * 
+ *
  * Creates a centered dialog box with slots for heading, content and footer.
  * Calling slideOut() returns Promise "slided out!" and removes element.
- * 
- * Set origin for slide in translation:
- * 
- *     dialog.appearance = "top" | "bottom" | "right" | "left"  or
- *     dialog.startPoint = {x: left, y: top}
- * 
- * Disable scale up transition:
- * 
- *     dialog.noscale = true
- *      
+ *
+ * Set origin for slide-in and slide-out translation:
+ *
+ *     dialog.slideInOrigin = "top" | "bottom" | "right" | "left" | "click"| "center"(default)
+ *     dialog.slideOutTarget = "top" | "bottom" | "right" | "left" | "click"| "center"(default)
+ *     dialog.clickPoint = {x: clientX, y: clientY}
+ *
+ * Disable scale transition:
+ *
+ *     dialog.noScaleIn = true
+ *     dialog.noScaleOut = true
+ *
  * @customElement my-dialog-container
- * @prop appearance
- * @prop startPoint
- * @prop noscale
+ * @prop slideInOrigin
+ * @prop slideOutTarget
+ * @prop clickPoint
+ * @prop noScaleIn
+ * @prop noScaleOut
  * @slot heading
  * @slot content
  * @slot footer
@@ -30,7 +34,6 @@ export class DialogContainer extends LitElement {
   static styles = [
     css`
       .container {
-        
         position: absolute;
         inset: 0;
         flex-direction: column;
@@ -40,7 +43,7 @@ export class DialogContainer extends LitElement {
         -webkit-box-align: center;
         -webkit-box-orient: vertical;
         padding: 0 5%;
-        
+
         overflow: hidden;
 
         pointer-events: none;
@@ -78,25 +81,13 @@ export class DialogContainer extends LitElement {
         pointer-events: auto;
       }
 
-      .popup {
-        translate: 0 100vh;
-      }
-      .popdown {
-        translate: 0 -100vh;
-      }
-      .leftin {
-        translate: -100vw 0;
-      }
-      .rightin {
-        translate: 100vw 0;
-      }
       .noscale {
         transform: scale(1);
       }
 
       .slide-in {
         transform: scale(1);
-        /* to overwrite inline styles */
+        /* !important to overwrite inline styles */
         translate: 0 0 !important;
         transition: var(
           --dialog-container-slide-in-transition,
@@ -145,52 +136,81 @@ export class DialogContainer extends LitElement {
   ];
   static properties = {
     /** Dialog should not scale up */
-    noscale: {type: Boolean},
-    /** 
-     * Origin of slide in transition:
-     * 
-     * "left", "right", "top", "bottom"
+    noScaleIn: {type: Boolean},
+    noScaleOut: {type: Boolean},
+
+    /**
+     * Origin of slide-in transition:
+     *
+     * "left"|"right"| "top"|"bottom"|"click"|"center"(default)
      */
-    appearance: {type: String},
-    /** 
+    slideInOrigin: {type: String},
+
+    /**
+     * Target of slide-out transition:
+     *
+     * "left"|"right"|"top"|"bottom"|"click"|"center"(default)
+     */
+    slideOutTarget: {},
+    /**
      * Object with dialogs starting point.
-     * 
+     *
      *     {x: "left", y: "top"}
      */
-    startPoint: {},
+    clickPoint: {},
   };
 
   constructor() {
     super();
-    this.appearance = 'center';
-    this.noscale = false;
-    this.startPoint = null;
+    this.noScaleIn = false;
+    this.noScaleOut = false;
+    this.clickPoint = {x: 0, y: 0};
+    this.slideInOrigin = 'center';
+    this.slideOutTarget = 'click';
+  }
+
+  getOrigin() {
+    let startX = '0';
+    let startY = '0';
+
+    switch (this.slideInOrigin) {
+      case 'bottom':
+        startY = '100vh';
+        break;
+      case 'top':
+        startY = '-100vh';
+        break;
+      case 'left':
+        startX = '-100vw';
+        break;
+      case 'right':
+        startX = '100vw';
+        break;
+      case 'click':
+        startX = `calc(-50vw + ${this.clickPoint.x}px)`;
+        startY = `calc(-50vh + ${this.clickPoint.y}px)`;
+        break;
+      case 'center':
+        return;
+    }
+    return {translate: ` ${startX} ${startY}`};
   }
 
   render() {
     const classes = {
       dialog: true,
       'dialog-size': true,
-      popup: this.appearance === 'bottom',
-      popdown: this.appearance === 'top',
-      leftin: this.appearance === 'left',
-      rightin: this.appearance === 'right',
-      noscale: this.noscale,
+      noscale: this.noScaleIn,
     };
 
-    let startStyle;
-    if (this.startPoint) {
-      startStyle = {
-        translate: `calc(-50vw + ${this.startPoint.x}px) calc(-50vh + ${this.startPoint.y}px)`,
-      };
-    }
+    let start = this.getOrigin();
 
     return html`
       <div id="dialog" class="container">
         <div class="center-vertically-box"></div>
         <div
           class="${classMap(classes)}"
-          style=${startStyle ? styleMap(startStyle) : nothing}
+          style=${start ? styleMap(start) : nothing}
           role="dialog"
         >
           <div class="heading-container">
@@ -222,6 +242,8 @@ export class DialogContainer extends LitElement {
   }
 
   _slideOut = () => {
+    this.slideInOrigin = this.slideOutTarget;
+    this.noScaleIn = this.noScaleOut;
     this._dialog.classList.remove('slide-in');
   };
 

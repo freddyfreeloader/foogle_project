@@ -41,15 +41,44 @@ export const Playground = {
       }
     </style>
     <div id="decorator" class="decorator">
-      <button id="center" type="button">centered by default</button>
-      <button id="leftin" type="button">slide in from left</button>
-      <button id="rightin" type="button">slide in from right</button>
-      <button id="popup" type="button">slide in from bottom</button>
-      <button id="popdown" type="button">slide in from top</button>
-      <button id="mouseposition" type="button">
-        slide in from mouse click position
-      </button>
-      <input id="shouldscale" type="checkbox" checked /> Dialog should scale up
+      <p>
+        Slide-In:
+        <input
+          type="radio"
+          id="centerin"
+          name="slidein"
+          value="center"
+          checked
+        />
+        center <input type="radio" id="topin" name="slidein" value="top" /> top
+        <input type="radio" id="rightin" name="slidein" value="right" /> right
+        <input type="radio" id="leftin" name="slidein" value="left" /> left
+        <input type="radio" id="bottomin" name="slidein" value="bottom" />
+        bottom
+        <input type="radio" id="clickin" name="slidein" value="click" /> click
+        <input id="shouldscalein" type="checkbox" checked /> scale in
+      </p>
+
+      <p>
+        Slide-Out:
+        <input
+          type="radio"
+          id="centerout"
+          name="slideout"
+          value="center"
+          checked
+        />
+        center
+        <input type="radio" id="topout" name="slideout" value="top" /> top
+        <input type="radio" id="rightout" name="slideout" value="right" /> right
+        <input type="radio" id="leftout" name="slideout" value="left" /> left
+        <input type="radio" id="bottomout" name="slideout" value="bottom" />
+        bottom
+        <input type="radio" id="clickout" name="slideout" value="click" /> click
+        <input id="shouldscaleout" type="checkbox" checked /> scale out
+      </p>
+      <br />
+      <button id="center" type="button">open the dialog</button>
     </div>
 
     <script>
@@ -60,19 +89,20 @@ export const Playground = {
         return el;
       }
 
-      function addDialog(e, option) {
+      function addDialog(e) {
         const el = document.createElement('my-dialog-container');
+        el.clickPoint = {x: e.clientX, y: e.clientY};
+        const optionIn = [...document.querySelectorAll('input')].filter(
+          (i) => i.checked === true && i.name === 'slidein'
+        )[0].value;
+        const optionOut = [...document.querySelectorAll('input')].filter(
+          (i) => i.checked === true && i.name === 'slideout'
+        )[0].value;
+        el.slideInOrigin = optionIn;
+        el.slideOutTarget = optionOut;
 
-        if (option === 'mouseposition') {
-          el.startPoint = {x: e.clientX, y: e.clientY};
-        } else {
-          el.appearance = option;
-        }
-
-        const checkBox = document.querySelector('input');
-        if (!checkBox.checked) {
-          el.noscale = true;
-        }
+        el.noScaleIn = !document.getElementById('shouldscalein').checked;
+        el.noScaleOut = !document.getElementById('shouldscaleout').checked;
 
         const heading = createSlot('DIV', 'heading', 'Dialog Heading');
         const content = createSlot(
@@ -97,12 +127,7 @@ export const Playground = {
         const dialog = document.querySelector('my-dialog-container');
         dialog.remove();
       }
-      mouseposition.onclick = (e) => addDialog(e, 'mouseposition');
-      popup.onclick = (e) => addDialog(e, 'bottom');
-      popdown.onclick = (e) => addDialog(e, 'top');
-      leftin.onclick = (e) => addDialog(e, 'left');
-      rightin.onclick = (e) => addDialog(e, 'right');
-      center.onclick = (e) => addDialog(e, 'center');
+      center.onclick = (e) => addDialog(e);
     </script>
   `,
 };

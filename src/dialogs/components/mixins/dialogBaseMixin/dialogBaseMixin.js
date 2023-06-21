@@ -1,4 +1,4 @@
-import {html} from 'lit';
+import {html, nothing} from 'lit';
 import {styles_dialogs} from '../../styles/dialogStyles/styles_dialog';
 import {dispatchBubbelingCustomEvent} from '../../../../utils/eventHelpers/dispatchCustomEvent';
 import '../../modalBackground/modalBackground';
@@ -49,6 +49,8 @@ import '../../dialogContainer/dialogContainer';
  * >    applyText = text for apply button ("default apply")
  *
  * >    cancelText = text for cancel button ("default cancel")
+ * 
+ * >    clickPoint = optional object to determinate dialogs slideIn/slideOut origin/target (defaults to null => top left corner)
  *
  *
  * #### properties
@@ -63,7 +65,7 @@ import '../../dialogContainer/dialogContainer';
  * >    async closeDialog(event) = to close the dialog;
  *
  * >    async isClosed() = resolve if dialog is closed (for testing purpose)
- *
+ * 
  *
  * #### Content of the heading section
  *
@@ -121,6 +123,7 @@ export const DialogBaseMixin = (superClass) =>
       messageText: {reflect: true},
       /** The function to call when apply button is clicked. */
       saveFunction: {},
+      clickPoint: {},
     };
 
     constructor() {
@@ -130,6 +133,7 @@ export const DialogBaseMixin = (superClass) =>
       this.cancelText = 'default cancel';
       this.messageText = 'default message text';
       this.saveFunction = null;
+      this.clickPoint = null;
     }
 
     get _dialog() {
@@ -168,12 +172,12 @@ export const DialogBaseMixin = (superClass) =>
       <my-dialog-button
         class="js-cancel-button"
         @click="${(e)=> this.closeDialog(e)}"
-        .labelText="${this.cancelText}"
+        labelText="${this.cancelText}"
       ></my-dialog-button>
       <my-dialog-button
         class="js-apply-button"
         @click="${(e)=> this.apply(e)}"
-        .labelText="${this.applyText}"
+        labelText="${this.applyText}"
       ></my-dialog-button>
     </div>`;
 
@@ -184,7 +188,7 @@ export const DialogBaseMixin = (superClass) =>
         @click="${(e)=> this.closeDialog(e)}"
       >
         <div class="js-focus-border" tabindex="0" aria-hidden="true"></div>
-        <my-dialog-container class="js-dialog-container">
+        <my-dialog-container class="js-dialog-container" .clickPoint="${this.clickPoint ?? nothing}">
           ${this.heading()} ${this.content()} ${this.footer()}
         </my-dialog-container>
         <div class="js-focus-border" tabindex="0" aria-hidden="true"></div>

@@ -60,8 +60,9 @@ export const Example = {
     <div class="colored-box"></div>
     <button id="button" type="button">Change color</button>
     <script>
-      function createDialog() {
+      function createDialog(e) {
         const dialog = document.createElement('my-confirmation-dialog');
+        dialog.clickPoint = {x: e.clientX, y: e.clientY};
         dialog.headingText = 'This is an example dialog.';
         dialog.messageText = 'Do you want to change the color?';
         dialog.applyText = 'Yes';
@@ -73,7 +74,7 @@ export const Example = {
       }
       function initButton() {
         const button = document.querySelector('#button');
-        button.onclick = () => createDialog();
+        button.onclick = (e) => createDialog(e);
       }
       initButton();
     </script>

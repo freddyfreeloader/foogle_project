@@ -79,8 +79,9 @@ export const Example = {
         box.classList.add(color);
       }
 
-      function openDialog() {
+      function openDialog(e) {
         const dialog = document.createElement('my-radio-button-dialog');
+        dialog.clickPoint = {x: e.clientX, y: e.clientY};
         dialog.headingText = 'Color The Box';
         dialog.messageText = 'Choose a color for the box';
         dialog.cancelText = 'Cancel';
@@ -104,7 +105,7 @@ export const Example = {
 
       function initButton() {
         const button = document.querySelector('#button');
-        button.onclick = () => openDialog();
+        button.onclick = (e) => openDialog(e);
       }
 
       initButton();
@@ -118,8 +119,9 @@ export const GoogleDialogExample = {
   render: () => html`
     <button id="button" type="button">Open Dialog</button>
     <script>
-      function openDialog() {
+      function openDialog(e) {
         const dialog = document.createElement('my-radio-button-dialog');
+        dialog.clickPoint = {x: e.clientX, y: e.clientY};
         dialog.headingText = 'Dieses Label löschen';
         dialog.messageText =
           'Das Label enthält 2 Kontakte. Wähle aus, was damit passieren soll.';
@@ -135,7 +137,7 @@ export const GoogleDialogExample = {
 
       function initButton() {
         const button = document.querySelector('#button');
-        button.onclick = () => openDialog();
+        button.onclick = (e) => openDialog(e);
       }
 
       initButton();

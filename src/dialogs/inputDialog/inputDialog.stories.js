@@ -87,8 +87,9 @@ export const ExampleImplementation = {
     <script>
       'use strict';
 
-      function openDialog() {
+      function openDialog(e) {
         const dialog = document.createElement('my-input-dialog');
+        dialog.clickPoint = {x: e.clientX, y: e.clientY};
         dialog.headingText = 'Please provide content!';
         dialog.applyText = 'take it!';
         dialog.cancelText = "don't change";
@@ -109,7 +110,7 @@ export const ExampleImplementation = {
       function initTextBox() {
         const box = document.querySelector('#textbox');
         if (box) {
-          box.onclick = () => openDialog();
+          box.onclick = (e) => openDialog(e);
         }
       }
       initTextBox();
