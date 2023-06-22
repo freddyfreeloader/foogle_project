@@ -1,5 +1,5 @@
 import {html, nothing} from 'lit';
-import {styles_dialogs} from '../../styles/dialogStyles/styles_dialog';
+import {styles_dialogs} from './styles_dialog';
 import {dispatchBubbelingCustomEvent} from '../../../../utils/eventHelpers/dispatchCustomEvent';
 import '../../modalBackground/modalBackground';
 import '../../dialogButton/dialogButton';
@@ -49,7 +49,7 @@ import '../../dialogContainer/dialogContainer';
  * >    applyText = text for apply button ("default apply")
  *
  * >    cancelText = text for cancel button ("default cancel")
- * 
+ *
  * >    clickPoint = optional object to determinate dialogs slideIn/slideOut origin/target (defaults to null => top left corner)
  *
  *
@@ -65,7 +65,7 @@ import '../../dialogContainer/dialogContainer';
  * >    async closeDialog(event) = to close the dialog;
  *
  * >    async isClosed() = resolve if dialog is closed (for testing purpose)
- * 
+ *
  *
  * #### Content of the heading section
  *
@@ -85,15 +85,15 @@ import '../../dialogContainer/dialogContainer';
  *         <my-dialog-button class="js-cancel-button" @click="${this.closeDialog}" .labelText="${this.cancelText}"></my-dialog-button>
  *         <my-dialog-button class="js-apply-button" @click="${this.apply}" .labelText="${this.applyText}"></my-dialog-button>
  *      </div>`;
- * 
+ *
  * **NOTE:**
- * 
- * > Lit's inline eventListener ( <div @click=${this.handleClick}></div>) doesn't work with spy test cases with mixins as expected, 
+ *
+ * > Lit's inline eventListener ( <div @click=${this.handleClick}></div>) doesn't work with spy test cases with mixins as expected,
  * > because "this" referenced the mixin and not the extended class in that case.
  * > So spys on object methods won't work as expected.
  * >
  * > Use the more verbose inline event declaration: <div @click=${(event)=> this.handleClick(event)}></div> instead.
- * 
+ *
  *
  * @mixin
  * @param {*} superClass
@@ -124,6 +124,10 @@ export const DialogBaseMixin = (superClass) =>
       /** The function to call when apply button is clicked. */
       saveFunction: {},
       clickPoint: {},
+      noScaleIn: {type: Boolean},
+      noScaleOut: {type: Boolean},
+      slideOutTarget: {},
+      slideInOrigin: {},
     };
 
     constructor() {
@@ -134,6 +138,10 @@ export const DialogBaseMixin = (superClass) =>
       this.messageText = 'default message text';
       this.saveFunction = null;
       this.clickPoint = null;
+      this.slideOutTarget = 'click';
+      this.slideInOrigin = 'center';
+      this.noScaleIn = false;
+      this.noScaleOut = false;
     }
 
     get _dialog() {
@@ -171,12 +179,12 @@ export const DialogBaseMixin = (superClass) =>
     footer = () => html` <div slot="footer">
       <my-dialog-button
         class="js-cancel-button"
-        @click="${(e)=> this.closeDialog(e)}"
+        @click="${(e) => this.closeDialog(e)}"
         labelText="${this.cancelText}"
       ></my-dialog-button>
       <my-dialog-button
         class="js-apply-button"
-        @click="${(e)=> this.apply(e)}"
+        @click="${(e) => this.apply(e)}"
         labelText="${this.applyText}"
       ></my-dialog-button>
     </div>`;
@@ -185,10 +193,17 @@ export const DialogBaseMixin = (superClass) =>
     renderDialog() {
       return html` <my-modal-background
         class="js-background"
-        @click="${(e)=> this.closeDialog(e)}"
+        @click="${(e) => this.closeDialog(e)}"
       >
         <div class="js-focus-border" tabindex="0" aria-hidden="true"></div>
-        <my-dialog-container class="js-dialog-container" .clickPoint="${this.clickPoint ?? nothing}">
+        <my-dialog-container
+          class="js-dialog-container"
+          .clickPoint="${this.clickPoint ?? nothing}"
+          .noScaleIn=${this.noScaleIn}
+          .noScaleOut=${this.noScaleOut}
+          .slideInOrigin=${this.slideInOrigin}
+          .slideOutTarget=${this.slideOutTarget}
+        >
           ${this.heading()} ${this.content()} ${this.footer()}
         </my-dialog-container>
         <div class="js-focus-border" tabindex="0" aria-hidden="true"></div>
@@ -200,7 +215,7 @@ export const DialogBaseMixin = (superClass) =>
       const isCancelButton = event.currentTarget === this._cancelButton;
       const isSaveButton = event.currentTarget === this._applyButton;
       const isBackground = event.target === this._background;
-      return isCancelButton || isSaveButton || isBackground ;
+      return isCancelButton || isSaveButton || isBackground;
     }
     /**
      * Closing steps:
@@ -223,9 +238,8 @@ export const DialogBaseMixin = (superClass) =>
         this.remove();
 
         return results;
-      } 
+      }
       return 'not valid event for close';
-      
     }
 
     /**
@@ -237,10 +251,10 @@ export const DialogBaseMixin = (superClass) =>
         this.addEventListener('dialogClosed', () => resolve('isClosed'))
       );
     }
-    
+
     /**
      * Called by apply button.
-     * 
+     *
      * - executes the saveFunction()
      * - calls closeDialog()
      */
